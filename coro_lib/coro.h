@@ -3,6 +3,8 @@
 
 #include <ucontext.h>
 
+#define CORO_DEFAULT_STACK_SIZE 4096
+
 typedef struct coro_t coro_t;
 typedef struct yield_buf yield_buf;
 
@@ -23,9 +25,9 @@ struct coro_t {
     ucontext_t this_context;
 };
 
-coro_t* coro_curr();
+coro_t *coro_curr();
 void coro_init(coro_t *coro, coro_fn func);
 void coro_yield(coro_t *next, void *data);
-void coro_start(coro_t *coro);
+void coro_start(coro_t *coro, void *data);
 
 #endif
