@@ -14,7 +14,7 @@ enum coro_state {
     NEW,
     RUNNING,
     FINISHED,
-    FREED
+    FREE
 };
 
 struct coro_t {
