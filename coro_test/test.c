@@ -24,8 +24,8 @@ void f1(coro_t *coro){
 }
 
 int main(){
-    coro_init(&coro0, f0);
-    coro_init(&coro1, f1);
+    coro_init(&coro0, (coro_fn)f0, NULL);
+    coro_init(&coro1, (coro_fn)f1, NULL);
 
     coro_start(&coro0);
 
