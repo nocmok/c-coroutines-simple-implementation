@@ -8,13 +8,13 @@
 typedef struct coro_t coro_t;
 typedef enum coro_state coro_state;
 
-typedef void (*coro_fn)(coro_t *coro);
+typedef void (*coro_fn)(coro_t *coro, void*);
 
 enum coro_state {
     NEW,
     RUNNING,
     FINISHED,
-    FREE
+    FREED
 };
 
 struct coro_t {
@@ -23,6 +23,8 @@ struct coro_t {
     size_t stack_size;
     void *stack;
 
+    /* arguments to pass to function */
+    void *args;
     coro_fn func;
 
     ucontext_t this_context;
@@ -33,7 +35,7 @@ struct coro_t {
     ucontext_t *caller_context;
 };
 
-void coro_init(coro_t *coro, coro_fn func);
+void coro_init(coro_t *coro, coro_fn func, void *args);
 void coro_yield(coro_t *next);
 void coro_start(coro_t *coro);
 void coro_free(coro_t *coro); 
